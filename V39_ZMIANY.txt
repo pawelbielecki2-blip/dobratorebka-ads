@@ -1,0 +1,9 @@
+V39 FILL MODE
+
+Zmiana:
+- zdjęcie z oferty jest teraz kadrowane metodą FILL (ImageOps.fit)
+- wypełnia cały format 1080x1350
+- brak białych pasów
+- produkt jest większy i bardziej widoczny
+
+Port: 5027

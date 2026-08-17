@@ -1,0 +1,15 @@
+DOBRATOREBKA V45.1 — SIMPLE NEWBLACK
+
+Uproszczenie:
+- 1 wariant New Black jest domyślny.
+- Główne style: Lifestyle miejski, Premium studio, Letni / wakacyjny.
+- Prompt można ręcznie edytować.
+- 4 warianty są schowane pod „Opcje zaawansowane”.
+
+Pozostałe funkcje V45 pozostają bez zmian.
+
+Uruchom:
+URUCHOM_V45_1.bat
+
+Adres:
+http://127.0.0.1:5040

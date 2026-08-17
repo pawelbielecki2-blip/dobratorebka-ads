@@ -1,0 +1,23 @@
+DOBRATOREBKA V38 — WHITE HEADER ELEGANT
+
+Zmiany:
+- całkowicie usunięte beżowe tło,
+- biały pasek na pełną szerokość u góry grafiki,
+- elegancki napis DOBRATOREBKA na prawie całą szerokość,
+- czarna typografia premium z większym trackingiem,
+- subtelny różowy akcent pod logo,
+- zdjęcie produktu/modelki pozostaje głównym elementem,
+- cena w prawym dolnym rogu na lekkiej białej karcie,
+- stara cena przekreślona różową linią.
+
+Pozostały przepływ V37.1:
+1. link produktu,
+2. wybór zdjęcia z oferty,
+3. zdjęcie źródłowe albo New Black,
+4. finalna grafika.
+
+Uruchom:
+URUCHOM_V38.bat
+
+Adres:
+http://127.0.0.1:5024

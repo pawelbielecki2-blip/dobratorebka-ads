@@ -1,0 +1,27 @@
+DOBRATOREBKA V45 — MULTI NEWBLACK
+
+Nowa funkcja:
+- przy New Black wybierasz 1 albo 4 warianty,
+- przy 4 wariantach aplikacja generuje cztery zdjęcia z tym samym wybranym promptem,
+- potem pokazuje wszystkie cztery obok siebie,
+- wybierasz najlepsze zdjęcie,
+- dopiero ono trafia do finalnej grafiki.
+
+Uwaga:
+4 warianty zużywają około 4× więcej kredytów New Black.
+
+Pozostałe funkcje V44 zostają:
+- własne prompty i presety,
+- zdjęcie z oferty lub New Black,
+- Fill,
+- nagłówek D O B R A T O R E B K A . P L,
+- logo Monnari,
+- ceny,
+- generator postów,
+- Facebook publikacja i diagnostyka.
+
+Uruchom:
+URUCHOM_V45.bat
+
+Adres:
+http://127.0.0.1:5039

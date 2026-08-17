@@ -1,0 +1,5 @@
+V42: generator postów na podstawie zawartości linku produktu.
+Style: Krótki, Premium, Sprzedażowy, Storytelling, Facebook Emoji, Instagram.
+Opcje: cechy produktu, darmowa dostawa, hashtagi, emotikony.
+Poza wybranym postem aplikacja pokazuje 5 propozycji.
+Port 5034.

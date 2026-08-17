@@ -1,0 +1,18 @@
+DOBRATOREBKA V38.2 — PURE WHITE FIXED
+
+Ta wersja naprawia uruchamianie V38.1.
+
+Zmiany:
+- przywrócony pełny launcher z instalacją bibliotek,
+- sprawdzanie składni app.py przed startem,
+- nowy port 5026,
+- biały nagłówek = #FFFFFF,
+- karta ceny = #FFFFFF,
+- tło/margines zdjęcia źródłowego = #FFFFFF,
+- brak beżowego/kremowego tła.
+
+Uruchom:
+URUCHOM_V38_2.bat
+
+Adres:
+http://127.0.0.1:5026

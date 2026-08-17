@@ -1,0 +1,18 @@
+DOBRATOREBKA V40.1 — SMALLER HEADER
+
+Zmiana:
+- górna biała belka została zmniejszona z 170 px do 112 px,
+- napis DOBRATOREBKA jest trochę mniejszy i przesunięty wyżej,
+- różowy akcent pod nagłówkiem również został podniesiony,
+- dzięki temu zdjęcie zajmuje większą część reklamy.
+
+Pozostałe elementy bez zmian:
+- zdjęcie Fill na cały kadr,
+- oryginalne logo Monnari 1:1 w lewym dolnym rogu,
+- cena i stara cena w prawym dolnym rogu.
+
+Uruchom:
+URUCHOM_V40_1.bat
+
+Adres:
+http://127.0.0.1:5029

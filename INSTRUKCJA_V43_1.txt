@@ -1,0 +1,16 @@
+DOBRATOREBKA V43.1 — FACEBOOK TOKEN TEST
+
+Nowy przycisk:
+SPRAWDŹ POŁĄCZENIE Z FACEBOOKIEM
+
+Test niczego nie publikuje. Sprawdza:
+- FB_PAGE_ID,
+- obecność tokenu,
+- odpowiedź /me,
+- czy token wygląda jak token tej strony,
+- listę uprawnień,
+- czy jest pages_manage_posts,
+- dostęp do skonfigurowanej strony.
+
+Port:
+http://127.0.0.1:5036

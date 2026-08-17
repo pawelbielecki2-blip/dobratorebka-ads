@@ -1,0 +1,16 @@
+DOBRATOREBKA V40 — MONNARI LOGO
+
+Zmiany względem V39:
+- zdjęcie nadal wypełnia cały kadr (Fill),
+- u góry zostaje biały pasek DOBRATOREBKA,
+- prawy dół: aktualna cena + przekreślona stara cena,
+- lewy dół: ORYGINALNE logo Monnari z załącznika,
+- logo Monnari nie jest generowane ani odtwarzane przez AI,
+- zachowane są oryginalne proporcje i kolory,
+- usunięte zostało tylko białe tło wokół logo.
+
+Uruchom:
+URUCHOM_V40.bat
+
+Adres:
+http://127.0.0.1:5028

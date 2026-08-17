@@ -1,0 +1,18 @@
+DOBRATOREBKA V44 — NEW BLACK PROMPTS
+
+NAPRAWA .ENV:
+- aplikacja automatycznie dopisuje linię NEWBLACK_API_KEY= jeśli jej brakuje.
+- wpisz swój klucz po znaku =, np. NEWBLACK_API_KEY=twoj_klucz
+
+PROMPTY NEW BLACK:
+- Lifestyle miejski
+- Premium studio
+- Letni / wakacyjny
+- Minimalistyczny e-commerce
+- można też wpisać własny prompt ręcznie.
+
+Prompt działa tylko po wybraniu „Wygeneruj przez New Black”.
+Pozostałe funkcje aplikacji zostają bez zmian.
+
+Uruchom: URUCHOM_V44.bat
+Adres: http://127.0.0.1:5038

@@ -1,0 +1,31 @@
+DOBRATOREBKA V43 — PUBLIKACJA NA FACEBOOK PAGE
+
+NOWA FUNKCJA:
+Po wygenerowaniu grafiki i tekstu pojawia się przycisk:
+PUBLIKUJ NA FACEBOOKU
+
+Aplikacja wysyła:
+- wygenerowany JPG,
+- aktualny tekst posta,
+na skonfigurowaną Facebook Page.
+
+KONFIGURACJA:
+1. Uruchom raz URUCHOM_V43.bat.
+2. W folderze aplikacji powstanie plik .env.
+3. Uzupełnij:
+   FB_PAGE_ID=...
+   FB_PAGE_ACCESS_TOKEN=...
+
+Opcjonalnie:
+   FB_GRAPH_VERSION=...
+Jeśli zostawisz puste, aplikacja użyje nieversionowanego endpointu Graph API.
+
+UWAGA:
+Token musi należeć do strony i mieć uprawnienia potrzebne do publikowania postów/zdjęć na Page.
+Aplikacja nie przechowuje tokenu w kodzie ani w wygenerowanych grafikach.
+
+Adres:
+http://127.0.0.1:5035
+
+Uruchom:
+URUCHOM_V43.bat

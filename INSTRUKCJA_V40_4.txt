@@ -1,0 +1,23 @@
+DOBRATOREBKA V40.4 — FINAL HEADER
+
+Nagłówek:
+D O B R A T O R E B K A . P L
+
+Zmiany:
+- górna biała belka zmniejszona do 82 px,
+- napis jest większy,
+- czcionka automatycznie dopasowuje się do szerokości grafiki,
+- tekst jest wyśrodkowany w pionie i poziomie,
+- bez różowej kreski.
+
+Pozostałe elementy bez zmian:
+- zdjęcie Fill,
+- oryginalne logo Monnari w lewym dolnym rogu,
+- cena + przekreślona stara cena w prawym dolnym rogu,
+- wybór zdjęcia z oferty lub generacji New Black.
+
+Uruchom:
+URUCHOM_V40_4.bat
+
+Adres:
+http://127.0.0.1:5032

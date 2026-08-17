@@ -1,0 +1,22 @@
+DOBRATOREBKA V41 — FACEBOOK POST
+
+Nowa funkcja:
+- po wygenerowaniu grafiki aplikacja tworzy gotowy tekst do posta na Facebook,
+- korzysta z nazwy produktu, ceny, starej ceny i linku,
+- dodaje emoji, CTA i hashtagi,
+- tekst można edytować w polu,
+- przycisk KOPIUJ TEKST kopiuje całość do schowka,
+- generowanie tekstu jest lokalne i nie zużywa kredytów OpenAI.
+
+Pozostałe funkcje V40.4 bez zmian:
+- wybór zdjęcia z oferty / New Black,
+- Fill,
+- nagłówek D O B R A T O R E B K A . P L,
+- logo Monnari,
+- blok ceny.
+
+Uruchom:
+URUCHOM_V41.bat
+
+Adres:
+http://127.0.0.1:5033

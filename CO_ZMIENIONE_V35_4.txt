@@ -1,0 +1,19 @@
+V35.4 — TEXT LOGO
+
+Logo nie korzysta już z pliku graficznego.
+
+Aplikacja sama rysuje:
+- DOBRA
+- TOREBKA
+- duże różowe A
+- OFICJALNA DYSTRYBUCJA MONNARI
+
+Dzięki temu:
+- logo jest zawsze ostre,
+- tło jest zgodne z panelem,
+- nie ma białego prostokąta,
+- nie ma problemu z przezroczystością,
+- AI nie generuje logo,
+- przed narysowaniem logo aplikacja czyści całą strefę logo.
+
+Port: 5020

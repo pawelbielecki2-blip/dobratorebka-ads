@@ -1,0 +1,17 @@
+DOBRATOREBKA V37
+
+Przepływ:
+1. Wklejasz link produktu.
+2. Aplikacja pobiera zdjęcia z oferty.
+3. Wybierasz konkretne zdjęcie.
+4. Wybierasz:
+   - użyj zdjęcia z oferty (0 kredytów New Black),
+   - albo wygeneruj przez New Black na podstawie wybranego zdjęcia.
+5. Aplikacja pokazuje podgląd.
+6. Dodaje tylko logo DobraTorebka + aktualną cenę + przekreśloną starą cenę.
+
+Port:
+http://127.0.0.1:5022
+
+Uruchom:
+URUCHOM_V37.bat

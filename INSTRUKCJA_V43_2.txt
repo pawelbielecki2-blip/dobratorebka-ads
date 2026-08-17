@@ -1,0 +1,15 @@
+DOBRATOREBKA V43.2 — PAGE TOKEN FIX
+
+Zmiany:
+- poprawiona diagnostyka Page Access Token,
+- dla tokenu strony nie jest już wykonywany /me/permissions,
+- jeśli /me zwraca ten sam ID co FB_PAGE_ID i strona jest dostępna, token przechodzi diagnostykę,
+- dodany przycisk TEST GOTOWOŚCI DO PUBLIKACJI,
+- test niczego nie publikuje,
+- normalny przycisk PUBLIKUJ NA FACEBOOKU pozostaje.
+
+Uruchom:
+URUCHOM_V43_2.bat
+
+Adres:
+http://127.0.0.1:5037

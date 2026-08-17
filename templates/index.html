@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DobraTorebka V45.1</title>
+<style>
+:root{--bg:#171717;--card:#232323;--line:#3a3a3a;--txt:#f5f5f5;--muted:#aaa;--pink:#e91e63;--green:#183b23}
+*{box-sizing:border-box}
+body{margin:0;background:#171717;color:var(--txt);font-family:Arial,sans-serif}
+.wrap{max-width:1180px;margin:26px auto;padding:0 18px}
+h1{margin:0 0 6px}.pink{color:var(--pink)}
+.sub{color:var(--muted);margin-bottom:20px}
+.card{background:#232323;border:1px solid #333;border-radius:14px;padding:22px;margin-bottom:18px}
+label{display:block;font-weight:700;margin:10px 0 7px}
+input{width:100%;padding:13px;border-radius:8px;border:1px solid #444;background:#1b1b1b;color:#fff}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:9px;background:linear-gradient(90deg,#c71958,#ef236d);color:#fff;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}
+.note{font-size:13px;color:var(--muted);line-height:1.5}
+.err{background:#581c29;color:#ffd5df;padding:13px;border-radius:8px;margin-bottom:14px}
+
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 18px}
+.mode{border:1px solid #444;border-radius:12px;padding:16px;background:#1c1c1c;cursor:pointer}
+.mode:has(input:checked){border-color:var(--pink);background:#311523}
+.mode input{width:auto;margin-right:7px}
+.badge{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;font-size:12px;background:var(--green);color:#c6efcf}
+.badge.cost{background:#4b2f15;color:#ffd49f}
+
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 18px}
+.thumb{position:relative;background:#111;border:2px solid #3d3d3d;border-radius:10px;overflow:hidden;cursor:pointer}
+.thumb:has(input:checked){border-color:var(--pink)}
+.thumb input{position:absolute;top:8px;left:8px;width:auto;z-index:2}
+.thumb img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#fff}
+.thumb span{display:block;padding:7px 8px;font-size:12px;color:#ddd}
+
+.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.preview{background:#111;border-radius:12px;padding:12px;display:grid;place-items:center}
+.preview img{max-width:100%;max-height:780px;border-radius:8px}
+
+@media(max-width:850px){.grid,.modes{grid-template-columns:1fr}.thumbs{grid-template-columns:repeat(2,1fr)}}
+.postbox{width:100%;min-height:230px;padding:14px;border-radius:10px;border:1px solid #444;background:#171717;color:#fff;font:14px/1.55 Arial,sans-serif;resize:vertical}
+.copybtn{display:block;width:100%;margin-top:10px;padding:12px;border:1px solid #555;border-radius:9px;background:#303030;color:#fff;font-weight:700;cursor:pointer}
+.copyok{color:#bfeec9;font-size:12px;margin-top:8px;min-height:16px}
+.postopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.postopts label{display:flex;gap:8px;align-items:center;font-weight:400;margin:0}
+.postopts input{width:auto}
+.posttabs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.posttabs label{border:1px solid #444;border-radius:8px;padding:10px;background:#1b1b1b;cursor:pointer;margin:0}
+.posttabs input{width:auto;margin-right:6px}
+.posttabs label:has(input:checked){border-color:var(--pink);background:#311523}
+.five details{border:1px solid #3b3b3b;border-radius:8px;background:#191919;padding:10px;margin-top:8px}
+.five pre{white-space:pre-wrap;font:13px/1.5 Arial,sans-serif;color:#ddd}
+.publishbox{margin-top:16px;padding-top:16px;border-top:1px solid #444}
+.publishbtn{display:block;width:100%;padding:15px;border:0;border-radius:9px;background:#1877F2;color:#fff;font-weight:800;cursor:pointer}
+.publishok{margin-top:10px;padding:11px;border-radius:8px;background:#173c23;color:#c6f0cf}
+.publishnote{font-size:12px;color:#aaa;line-height:1.5;margin-top:8px}
+.testbtn{display:block;width:100%;margin-bottom:10px;padding:13px;border:1px solid #4a89dc;border-radius:9px;background:#1d2f49;color:#d9e9ff;font-weight:800;cursor:pointer}
+.fbdiag{margin:12px 0;padding:12px;border:1px solid #444;border-radius:10px;background:#171717}
+.fbcheck{padding:8px 0;border-bottom:1px solid #2c2c2c}
+.fbcheck:last-child{border-bottom:0}
+.fbok{color:#aee9bb}.fbno{color:#ff9daf}
+.promptbox{margin:14px 0;padding:14px;border:1px solid #444;border-radius:10px;background:#191919}
+.promptgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.promptgrid label{display:block;border:1px solid #444;border-radius:8px;padding:10px;background:#202020;cursor:pointer;font-weight:400}
+.promptgrid input{width:auto;margin-right:6px}
+.promptgrid label:has(input:checked){border-color:var(--pink);background:#311523}
+.promptarea{width:100%;min-height:115px;background:#151515;color:#fff;border:1px solid #444;border-radius:8px;padding:11px;resize:vertical}
+@media(max-width:700px){.promptgrid{grid-template-columns:1fr}}
+.variantcount{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.variantcount label{border:1px solid #444;border-radius:8px;padding:10px;background:#202020;cursor:pointer;font-weight:400}
+.variantcount input{width:auto;margin-right:6px}
+.variantcount label:has(input:checked){border-color:var(--pink);background:#311523}
+.variantgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.variantcard{border:2px solid #333;border-radius:12px;overflow:hidden;background:#111;cursor:pointer}
+.variantcard:has(input:checked){border-color:var(--pink)}
+.variantcard img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.variantcard .vfoot{padding:10px}
+.variantcard input{width:auto;margin-right:8px}
+@media(max-width:760px){.variantgrid{grid-template-columns:1fr}}
+.advanced{margin-top:12px;border:1px solid #3d3d3d;border-radius:9px;background:#181818}
+.advanced summary{cursor:pointer;padding:11px 13px;font-weight:700;color:#ddd}
+.advanced .advbody{padding:0 13px 13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>DobraTorebka <span class="pink">V43.1</span></h1>
+<div class="sub">Wklejasz link → wybierasz zdjęcie z oferty albo New Black → logo + ceny.</div>
+
+{% if error %}<div class="err"><b>Błąd:</b> {{error}}</div>{% endif %}
+
+{% if stage=="start" %}
+<div class="card">
+<form method="post">
+<input type="hidden" name="action" value="load">
+<label>Link do produktu</label>
+<input name="url" type="url" required placeholder="https://dobratorebka.pl/...">
+<button class="btn" style="margin-top:14px">POBIERZ ZDJĘCIA Z OFERTY</button>
+</form>
+</div>
+{% endif %}
+
+{% if stage=="choose" %}
+<div class="card">
+<h2>Wybierz zdjęcie i sposób użycia</h2>
+<p class="note">Najpierw wybierz jedno zdjęcie z oferty. Potem zdecyduj, czy ma zostać użyte bez zmian, czy jako zdjęcie referencyjne dla New Black.</p>
+
+<form method="post">
+<input type="hidden" name="action" value="prepare">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+
+<div class="thumbs">
+{% for img in data.images %}
+<label class="thumb">
+<input type="radio" name="image_index" value="{{loop.index}}" {% if loop.first %}checked{% endif %}>
+<img src="{{img}}" alt="Zdjęcie {{loop.index}}">
+<span>Zdjęcie {{loop.index}}</span>
+</label>
+{% endfor %}
+</div>
+
+<label>Co zrobić z wybranym zdjęciem?</label>
+<div class="modes">
+<label class="mode">
+<input type="radio" name="source_mode" value="source" checked>
+<b>Użyj zdjęcia z oferty</b><br>
+<span class="badge">0 kredytów New Black</span>
+<p class="note">Zdjęcie zostaje użyte bez generowania New Black.</p>
+</label>
+
+<label class="mode">
+<input type="radio" name="source_mode" value="newblack">
+<b>Wygeneruj przez New Black</b><br>
+<span class="badge cost">zużywa kredyty New Black</span>
+<p class="note">Wybrane zdjęcie produktu jest referencją do zdjęcia lifestyle.</p>
+</label>
+</div>
+
+<div class="promptbox">
+<label>Styl zdjęcia New Black</label>
+<p class="note">Wybierz styl. Domyślnie generowany jest 1 wariant. Prompt możesz też dowolnie edytować.</p>
+<div class="promptgrid">
+<label><input type="radio" name="prompt_preset" checked onclick="setNBPrompt('lifestyle')">Lifestyle miejski</label>
+<label><input type="radio" name="prompt_preset" onclick="setNBPrompt('premium')">Premium studio</label>
+<label><input type="radio" name="prompt_preset" onclick="setNBPrompt('summer')">Letni / wakacyjny</label>
+</div>
+<textarea class="promptarea" name="newblack_prompt" id="newblack_prompt">Eleganckie zdjęcie lifestyle kobiety z torebką w nowoczesnym miejskim otoczeniu, naturalne światło, realistyczna moda premium, produkt dobrze widoczny.</textarea>
+</div>
+
+
+<details class="advanced">
+<summary>⚙ Opcje zaawansowane</summary>
+<div class="advbody">
+<label>Ile wariantów New Black wygenerować?</label>
+<div class="variantcount">
+<label><input type="radio" name="nb_count" value="1" checked>1 wariant (zalecane)</label>
+<label><input type="radio" name="nb_count" value="4">4 warianty</label>
+</div>
+<p class="note">4 warianty zużyją około 4× więcej kredytów New Black.</p>
+</div>
+</details>
+
+<button class="btn">PRZYGOTUJ REKLAMĘ</button>
+<script>
+const NB_PROMPTS={
+ lifestyle:"Eleganckie zdjęcie lifestyle kobiety z torebką w nowoczesnym miejskim otoczeniu, naturalne światło, realistyczna moda premium, produkt dobrze widoczny.",
+ premium:"Luksusowe zdjęcie studyjne fashion premium, elegancka modelka, jasne neutralne tło, miękkie światło, produkt wyraźnie wyeksponowany.",
+ summer:"Letnie zdjęcie lifestyle w jasnym śródziemnomorskim otoczeniu, stylowa kobieta z torebką, naturalne słoneczne światło, wakacyjny klimat.",
+ minimal:"Minimalistyczne zdjęcie e-commerce premium, jasne białe studio, subtelne cienie, nowoczesna stylizacja modelki, produkt na pierwszym planie."
+};
+function setNBPrompt(k){const e=document.getElementById('newblack_prompt'); if(e&&NB_PROMPTS[k]) e.value=NB_PROMPTS[k];}
+</script>
+</form>
+</div>
+{% endif %}
+
+{% if stage=="choose_variant" %}
+<div class="card">
+<h2>Wybierz najlepszy wariant New Black</h2>
+<p class="note">Wygenerowano {{data.variants|length}} wersje. Wybierz jedną, która ma trafić do finalnej reklamy.</p>
+
+<form method="post">
+<input type="hidden" name="action" value="select_variant">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="newblack_prompt" value="{{data.newblack_prompt|e}}">
+
+<div class="variantgrid">
+{% for v in data.variants %}
+<label class="variantcard">
+<img src="{{url_for('generated',n=v)}}" alt="Wariant {{loop.index}}">
+<div class="vfoot">
+<input type="radio" name="selected_variant" value="{{v}}" {% if loop.first %}checked{% endif %}>
+Wariant {{loop.index}}
+</div>
+</label>
+{% endfor %}
+</div>
+
+<button class="btn" style="margin-top:16px">WYBIERZ TEN WARIANT</button>
+</form>
+</div>
+{% endif %}
+
+{% if stage=="preview" %}
+<div class="grid">
+<div class="card">
+<h2>Podgląd</h2>
+<p class="note"><b>{{data.source_label}}</b></p>
+<p class="note">Finalnie aplikacja doda biały pasek u góry z eleganckim napisem DOBRATOREBKA na całą szerokość oraz aktualną i przekreśloną starą cenę.</p>
+<form method="post">
+<input type="hidden" name="action" value="final">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="preview_name" value="{{data.preview_name}}">
+<button class="btn">DODAJ LOGO I CENY</button>
+</form>
+<a class="btn" href="/" style="margin-top:10px;background:#333">NOWA GRAFIKA</a>
+</div>
+<div class="preview"><img src="{{url_for('generated',n=data.preview_name)}}"></div>
+</div>
+{% endif %}
+
+{% if stage=="done" %}
+<div class="grid">
+<div>
+<div class="card">
+<h2>Gotowa reklama</h2>
+<a class="btn" href="{{url_for('generated',n=data.final)}}" download>POBIERZ JPG</a>
+<a class="btn" href="/" style="margin-top:10px;background:#333">NOWA GRAFIKA</a>
+</div>
+
+<div class="card">
+<h2>Generator tekstu do posta</h2>
+<p class="note">Opis korzysta z rzeczywistej zawartości karty produktu: nazwy, opisu, cech, ceny i linku.</p>
+
+<form method="post">
+<input type="hidden" name="action" value="regenerate_post">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="final" value="{{data.final}}">
+
+<label>Styl posta</label>
+<div class="posttabs">
+<label><input type="radio" name="post_style" value="short" {% if data.post_style=="short" %}checked{% endif %}>Krótki</label>
+<label><input type="radio" name="post_style" value="premium" {% if data.post_style=="premium" %}checked{% endif %}>Premium</label>
+<label><input type="radio" name="post_style" value="sales" {% if data.post_style=="sales" %}checked{% endif %}>Sprzedażowy</label>
+<label><input type="radio" name="post_style" value="storytelling" {% if data.post_style=="storytelling" %}checked{% endif %}>Storytelling</label>
+<label><input type="radio" name="post_style" value="facebook_emoji" {% if data.post_style=="facebook_emoji" %}checked{% endif %}>Facebook Emoji</label>
+<label><input type="radio" name="post_style" value="instagram" {% if data.post_style=="instagram" %}checked{% endif %}>Instagram</label>
+</div>
+
+<div class="postopts">
+<label><input type="checkbox" name="add_features" value="1" {% if data.add_features %}checked{% endif %}>Cechy produktu</label>
+<label><input type="checkbox" name="add_shipping" value="1" {% if data.add_shipping %}checked{% endif %}>Darmowa dostawa</label>
+<label><input type="checkbox" name="add_hashtags" value="1" {% if data.add_hashtags %}checked{% endif %}>Hashtagi</label>
+<label><input type="checkbox" name="add_emojis" value="1" {% if data.add_emojis %}checked{% endif %}>Emotikony</label>
+</div>
+
+<button class="btn" type="submit">GENERUJ PONOWNIE TEKST</button>
+</form>
+
+<textarea class="postbox" id="fbpost">{{data.facebook_post}}</textarea>
+<button class="copybtn" type="button" onclick="copyPost()">KOPIUJ TEKST</button>
+<div class="copyok" id="copyok"></div>
+
+<div class="publishbox">
+<h3>Publikacja na Facebooku</h3>
+
+<form method="post">
+<input type="hidden" name="action" value="test_facebook">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="final" value="{{data.final}}">
+<input type="hidden" name="post_style" value="{{data.post_style}}">
+<input type="hidden" name="add_features" value="{% if data.add_features %}1{% endif %}">
+<input type="hidden" name="add_shipping" value="{% if data.add_shipping %}1{% endif %}">
+<input type="hidden" name="add_hashtags" value="{% if data.add_hashtags %}1{% endif %}">
+<input type="hidden" name="add_emojis" value="{% if data.add_emojis %}1{% endif %}">
+<textarea name="facebook_post" style="display:none">{{data.facebook_post}}</textarea>
+<button class="testbtn" type="submit">SPRAWDŹ PAGE ACCESS TOKEN</button>
+</form>
+
+{% if data.facebook_test %}
+<div class="fbdiag">
+<strong>Diagnostyka Facebook:</strong>
+{% for c in data.facebook_test.checks %}
+<div class="fbcheck {% if c.ok %}fbok{% else %}fbno{% endif %}">
+{% if c.ok %}✓{% else %}✕{% endif %} <b>{{c.label}}</b><br>
+<span style="color:#bbb">{{c.detail}}</span>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% if data.facebook_publish_ok %}
+<div class="publishok">✓ Opublikowano na Facebook Page.</div>
+{% endif %}
+
+
+<form method="post" style="margin-top:10px">
+<input type="hidden" name="action" value="test_publish_capability">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="final" value="{{data.final}}">
+<input type="hidden" name="post_style" value="{{data.post_style}}">
+<input type="hidden" name="add_features" value="{% if data.add_features %}1{% endif %}">
+<input type="hidden" name="add_shipping" value="{% if data.add_shipping %}1{% endif %}">
+<input type="hidden" name="add_hashtags" value="{% if data.add_hashtags %}1{% endif %}">
+<input type="hidden" name="add_emojis" value="{% if data.add_emojis %}1{% endif %}">
+<textarea name="facebook_post" style="display:none">{{data.facebook_post}}</textarea>
+<button class="testbtn" type="submit">TEST GOTOWOŚCI DO PUBLIKACJI</button>
+</form>
+
+{% if data.facebook_capability %}
+<div class="fbdiag">
+<div class="fbcheck {% if data.facebook_capability.ok %}fbok{% else %}fbno{% endif %}">
+{% if data.facebook_capability.ok %}✓{% else %}✕{% endif %} <b>Gotowość publikacji</b><br>
+<span style="color:#bbb">{{data.facebook_capability.detail}}</span>
+</div>
+</div>
+{% endif %}
+
+<form method="post" onsubmit="return confirm('Opublikować tę grafikę i tekst na Facebook Page?');">
+<input type="hidden" name="action" value="publish_facebook">
+<input type="hidden" name="product_json" value='{{data.product_json|e}}'>
+<input type="hidden" name="final" value="{{data.final}}">
+<input type="hidden" name="post_style" value="{{data.post_style}}">
+<input type="hidden" name="add_features" value="{% if data.add_features %}1{% endif %}">
+<input type="hidden" name="add_shipping" value="{% if data.add_shipping %}1{% endif %}">
+<input type="hidden" name="add_hashtags" value="{% if data.add_hashtags %}1{% endif %}">
+<input type="hidden" name="add_emojis" value="{% if data.add_emojis %}1{% endif %}">
+<textarea name="facebook_post" style="display:none">{{data.facebook_post}}</textarea>
+<button class="publishbtn" type="submit">PUBLIKUJ NA FACEBOOKU</button>
+</form>
+
+<div class="publishnote">
+Do publikacji wymagane są: FB_PAGE_ID i FB_PAGE_ACCESS_TOKEN w pliku .env.
+Przycisk publikuje aktualną grafikę razem z tekstem widocznym powyżej.
+</div>
+</div>
+
+<h3 style="margin-top:18px">5 gotowych propozycji</h3>
+<div class="five">
+{% for name,txt in data.five_posts %}
+<details><summary>{{name}}</summary><pre>{{txt}}</pre></details>
+{% endfor %}
+</div>
+</div>
+</div>
+
+<div class="preview"><img src="{{url_for('generated',n=data.final)}}"></div>
+</div>
+
+<script>
+function copyPost(){
+  const el=document.getElementById('fbpost');
+  navigator.clipboard.writeText(el.value).then(()=>{
+    document.getElementById('copyok').textContent='✓ Tekst skopiowany';
+  });
+}
+</script>
+{% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+DOBRATOREBKA V37.1 — TEXT LOGO
+
+Logo:
+- bez PNG,
+- bez białego tła,
+- bez półprzezroczystego panelu,
+- DOBRA / TOREBK = czarne,
+- A = różowe,
+- OFICJALNA DYSTRYBUCJA MONNARI = ciemnoszare.
+
+Przepływ:
+1. Wklejasz link produktu.
+2. Wybierasz zdjęcie z oferty.
+3. Wybierasz zdjęcie z oferty albo New Black.
+4. Aplikacja dodaje tylko logo + aktualną cenę + przekreśloną starą cenę.
+
+Uruchom:
+URUCHOM_V37_1.bat
+
+Adres:
+http://127.0.0.1:5023

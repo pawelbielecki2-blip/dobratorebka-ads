@@ -1,0 +1,19 @@
+DOBRATOREBKA V40.3 — SPACED DOMAIN
+
+Nagłówek:
+D O B R A T O R E B K A . P L
+
+Zmiany:
+- szeroki napis domeny na całą górną belkę,
+- biała belka zmniejszona do 98 px,
+- czarna elegancka czcionka serif,
+- bez różowej kreski,
+- zdjęcie Fill nadal wypełnia cały kadr,
+- oryginalne logo Monnari pozostaje w lewym dolnym rogu,
+- cena i stara cena pozostają w prawym dolnym rogu.
+
+Uruchom:
+URUCHOM_V40_3.bat
+
+Adres:
+http://127.0.0.1:5031

@@ -1,0 +1,11 @@
+V35.3 — REAL LOGO FIX
+
+Naprawa wykonana od zera na bazie V35:
+- używany jest pełny, czytelny plik logo z czarnym napisem + różowym A,
+- tło logo jest naprawdę przezroczyste,
+- nie ma białego prostokąta,
+- przed wklejeniem logo aplikacja czyści cały obszar, w którym AI mogło wygenerować fałszywe A/logo,
+- logo jest nakładane dopiero NA SAMYM KOŃCU, po wygenerowaniu layoutu przez AI,
+- zawsze powinno być dokładnie jedno logo.
+
+Port: 5019

@@ -1,0 +1,19 @@
+DOBRATOREBKA V40.2
+
+Zmiana nagłówka:
+- zamiast DOBRATOREBKA jest DobraTorebka.pl
+- elegancka czarna czcionka serif
+- wyśrodkowanie na białej belce
+- usunięta różowa kreska pod napisem
+- wysokość belki pozostaje zmniejszona jak w V40.1
+
+Pozostałe elementy:
+- zdjęcie Fill na cały kadr,
+- oryginalne logo Monnari w lewym dolnym rogu,
+- cena i stara cena w prawym dolnym rogu.
+
+Uruchom:
+URUCHOM_V40_2.bat
+
+Adres:
+http://127.0.0.1:5030
