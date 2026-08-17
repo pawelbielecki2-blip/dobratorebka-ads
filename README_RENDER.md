@@ -104,3 +104,24 @@ oraz:
 `[STORE FETCH BODY]`
 
 To pokaże, czy blokadę zwraca Cloudflare, dhosting, ModSecurity lub inna warstwa WAF.
+
+
+## V46.2 — weryfikacja wdrożenia
+
+Po deployu sprawdź:
+
+`https://dobratorebka-ads.onrender.com/version`
+
+Powinno zwrócić:
+
+`{"version":"V46.2 RENDER VERIFY"}`
+
+W logach przy starcie musi być:
+
+`[STARTUP] V46.2 RENDER VERIFY`
+
+Po wklejeniu linku produktu musi pojawić się:
+
+`[SCRAPE START] ...`
+
+Jeśli tych wpisów nie ma, Render nadal uruchamia starszy commit albo inne repo/root directory.

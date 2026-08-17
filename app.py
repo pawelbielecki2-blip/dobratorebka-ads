@@ -9,8 +9,9 @@ from flask import Flask,render_template,request,send_from_directory
 from dotenv import load_dotenv
 
 load_dotenv()
-APP_VERSION="V46.1 RENDER 403 FIX"
+APP_VERSION="V46.2 RENDER VERIFY"
 app=Flask(__name__)
+print(f"[STARTUP] {APP_VERSION}", flush=True)
 
 # Limits for the positioned preview sent as a base64 JPEG.
 app.config["MAX_CONTENT_LENGTH"] = 25 * 1024 * 1024
@@ -135,6 +136,7 @@ def fetch_store_page(url, timeout=35):
 
 
 def scrape(url):
+    print(f"[SCRAPE START] url={url}", flush=True)
     r=fetch_store_page(url, timeout=35);r.raise_for_status()
     s=BeautifulSoup(r.text,"html.parser")
 
@@ -1373,6 +1375,11 @@ def index():
 
     return render_template("index.html",stage=stage,data=data,error=error)
 
+
+
+@app.route("/version")
+def version():
+    return {"version": APP_VERSION}, 200
 
 
 @app.route("/healthz")
