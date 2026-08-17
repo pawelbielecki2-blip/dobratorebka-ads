@@ -1,5 +1,6 @@
 
-import os,re,io,json,time,uuid,base64
+import os
+import time,re,io,json,time,uuid,base64
 from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
@@ -8,7 +9,7 @@ from flask import Flask,render_template,request,send_from_directory
 from dotenv import load_dotenv
 
 load_dotenv()
-APP_VERSION="V46 RENDER"
+APP_VERSION="V46.1 RENDER 403 FIX"
 app=Flask(__name__)
 
 # Limits for the positioned preview sent as a base64 JPEG.
@@ -35,8 +36,106 @@ def money(t):
 def fm(v):
     return f"{v:.2f}".replace(".",",")+" zł" if v is not None else ""
 
+
+def make_store_session():
+    """Session tuned for fetching the user's own storefront from cloud hosting."""
+    s = requests.Session()
+    s.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/151.0.0.0 Safari/537.36"
+        ),
+        "Accept": (
+            "text/html,application/xhtml+xml,application/xml;q=0.9,"
+            "image/avif,image/webp,image/apng,*/*;q=0.8"
+        ),
+        "Accept-Language": "pl-PL,pl;q=0.9,en-US;q=0.7,en;q=0.6",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Connection": "keep-alive",
+        "Referer": "https://dobratorebka.pl/",
+    })
+    return s
+
+
+def fetch_store_page(url, timeout=35):
+    """
+    Fetch product page with browser-like headers and retries.
+    Logs useful diagnostics on Render if the storefront returns 403.
+    """
+    session = make_store_session()
+    last_response = None
+    last_exc = None
+
+    for attempt in range(1, 4):
+        try:
+            # Warm up the storefront once so the session can receive cookies.
+            if attempt == 1:
+                try:
+                    session.get("https://dobratorebka.pl/", timeout=15, allow_redirects=True)
+                except Exception:
+                    pass
+
+            response = session.get(url, timeout=timeout, allow_redirects=True)
+            last_response = response
+
+            print(
+                f"[STORE FETCH] attempt={attempt} status={response.status_code} "
+                f"url={response.url} server={response.headers.get('server','')} "
+                f"cf_ray={response.headers.get('cf-ray','')}",
+                flush=True
+            )
+
+            if response.status_code == 200:
+                return response
+
+            if response.status_code in (403, 429, 500, 502, 503, 504):
+                # Log a small, safe fragment to identify WAF/hosting blocks.
+                preview = " ".join(response.text[:700].split())
+                print(f"[STORE FETCH BODY] {preview}", flush=True)
+                if attempt < 3:
+                    time.sleep(1.5 * attempt)
+                    continue
+
+            response.raise_for_status()
+
+        except requests.RequestException as exc:
+            last_exc = exc
+            print(f"[STORE FETCH ERROR] attempt={attempt}: {exc}", flush=True)
+            if attempt < 3:
+                time.sleep(1.5 * attempt)
+                continue
+
+    if last_response is not None and last_response.status_code == 403:
+        server = last_response.headers.get("server", "")
+        ray = last_response.headers.get("cf-ray", "")
+        extra = []
+        if server:
+            extra.append(f"server={server}")
+        if ray:
+            extra.append(f"cf-ray={ray}")
+        suffix = (" (" + ", ".join(extra) + ")") if extra else ""
+        raise RuntimeError(
+            "Sklep dobratorebka.pl zwrócił 403 Forbidden dla serwera Render"
+            + suffix
+            + ". Aplikacja działa, ale hosting/WAF sklepu blokuje żądanie z Render. "
+              "Sprawdź log '[STORE FETCH BODY]' w Render albo dodaj wyjątek/whitelistę dla aplikacji."
+        )
+
+    if last_exc:
+        raise last_exc
+    raise RuntimeError("Nie udało się pobrać strony produktu.")
+
+
 def scrape(url):
-    r=requests.get(url,headers=UA,timeout=30);r.raise_for_status()
+    r=fetch_store_page(url, timeout=35);r.raise_for_status()
     s=BeautifulSoup(r.text,"html.parser")
 
     og=s.find("meta",property="og:title")
@@ -780,7 +879,7 @@ def compose_light_logo_price(product, photo):
 
 
 def prepare_source_photo(ref):
-    r=requests.get(ref,headers=UA,timeout=60)
+    r=requests.get(ref,headers=make_store_session().headers,timeout=60)
     r.raise_for_status()
     photo=Image.open(io.BytesIO(r.content)).convert("RGB")
     canvas=Image.new("RGB",(1080,1350),(255,255,255))

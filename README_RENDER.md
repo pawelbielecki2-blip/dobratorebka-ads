@@ -84,3 +84,23 @@ gunicorn app:app --bind 0.0.0.0:10000 --workers 1 --threads 4 --timeout 300
 ```
 
 Windows nadal możesz uruchamiać dotychczasowym sposobem.
+
+
+## V46.1 — poprawka 403 z dobratorebka.pl
+
+Ta wersja:
+- używa `requests.Session()`,
+- wysyła pełniejsze nagłówki przeglądarki,
+- najpierw otwiera stronę główną sklepu, żeby pobrać cookies,
+- wykonuje do 3 prób,
+- zapisuje w logach Render status, nagłówek `server`, `cf-ray` oraz krótki fragment odpowiedzi 403.
+
+Jeśli 403 nadal wystąpi, w Render -> Logs wyszukaj:
+
+`[STORE FETCH]`
+
+oraz:
+
+`[STORE FETCH BODY]`
+
+To pokaże, czy blokadę zwraca Cloudflare, dhosting, ModSecurity lub inna warstwa WAF.
