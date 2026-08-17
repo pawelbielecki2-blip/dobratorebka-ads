@@ -9,7 +9,7 @@ from flask import Flask,render_template,request,send_from_directory
 from dotenv import load_dotenv
 
 load_dotenv()
-APP_VERSION="V46.2 RENDER VERIFY"
+APP_VERSION="V46.3 CLOUDFLARE BYPASS HEADER"
 app=Flask(__name__)
 print(f"[STARTUP] {APP_VERSION}", flush=True)
 
@@ -41,6 +41,7 @@ def fm(v):
 def make_store_session():
     """Session tuned for fetching the user's own storefront from cloud hosting."""
     s = requests.Session()
+    bypass_token = (os.getenv("STORE_BYPASS_TOKEN") or "").strip()
     s.headers.update({
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -63,6 +64,12 @@ def make_store_session():
         "Connection": "keep-alive",
         "Referer": "https://dobratorebka.pl/",
     })
+    if bypass_token:
+        s.headers["X-DobraTorebka-App"] = bypass_token
+        print("[STORE SESSION] custom bypass header enabled", flush=True)
+    else:
+        print("[STORE SESSION] STORE_BYPASS_TOKEN is empty", flush=True)
+
     return s
 
 

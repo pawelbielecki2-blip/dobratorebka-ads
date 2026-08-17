@@ -12,6 +12,8 @@ services:
         value: 3.11.11
       - key: NEWBLACK_API_KEY
         sync: false
+      - key: STORE_BYPASS_TOKEN
+        sync: false
       - key: FB_PAGE_ID
         sync: false
       - key: FB_PAGE_ACCESS_TOKEN

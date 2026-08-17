@@ -125,3 +125,38 @@ Po wklejeniu linku produktu musi pojawić się:
 `[SCRAPE START] ...`
 
 Jeśli tych wpisów nie ma, Render nadal uruchamia starszy commit albo inne repo/root directory.
+
+
+# V46.3 — Cloudflare bypass header
+
+Aplikacja może wysyłać do dobratorebka.pl specjalny nagłówek:
+
+X-DobraTorebka-App: <STORE_BYPASS_TOKEN>
+
+## Render
+Dodaj zmienną środowiskową:
+STORE_BYPASS_TOKEN=<własny długi losowy sekret>
+
+## Cloudflare
+Security -> WAF -> Custom rules -> Create rule
+
+Expression:
+any(http.request.headers["x-dobratorebka-app"][*] eq "TU_TEN_SAM_SEKRET")
+
+Action:
+Skip
+
+Jeśli dostępne, pomiń:
+- All remaining custom rules
+- All managed rules
+- Browser Integrity Check
+- Security Level
+- All rate limiting rules
+- Super Bot Fight Mode
+
+Uwaga: Bot Fight Mode na planie Free nie może być pominięty regułą Skip.
+
+## Test
+Po deployu sprawdź /version.
+W logach Render powinno być:
+[STORE SESSION] custom bypass header enabled
